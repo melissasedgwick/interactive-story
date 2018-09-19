@@ -63,10 +63,19 @@ cave1: @options_cave1 = {"Turn around and exit cave" => {text: "Unable to find y
 cave_fork: @options_cave_fork = {"Go left" => {text: "You go left. You walk for an immeasurable length of time before the darkness consumes you and you can't even see your hands in front of your face. Not wanting to go any further, you turn around.", location: "cave_fork2"},
 "Go right" => {text: "Heading down the right tunnel, you begin to notice the light increasing. Eventually, you exit the cave, standing over a large field, looking to belong to a farmer. You see a small hut at the other end of the field.", location: "farm"}
 },
-cave_fork2: @options_cave_fork2 = {"Go right" => {text: "Heading down the right tunnel, you begin to notice the light increasing. Eventually, you exit the cave, standing over a large field, looking to belong to a farmer. You see a small hut at the other end of the field.", location: "farm"},
+cave_fork2: @options_cave_fork2 = {"Go right" => {text: "Heading down the right tunnel, you begin to notice the light increasing. Eventually, you exit the cave, standing over a large field, looking to belong to a farmer. You see a small hut at the other end of the field. The Sun is setting on the horizon; it'll be night soon.", location: "farm"},
 "Exit cave" => {text: "Unable to find your way, your turn around and exit the cave", location: "outside_cave1"},
 },
-farm: @options_farm = {"Go back into cave"}
+farm: @options_farm = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "farm"},
+"Go back into cave" => {text: "You head back into the cave, returning to the forked paths.", location: "cave_fork"},
+"Go to farm" => {text: "You head to the farm. As you get closer, you notice smoke rising from the chimney - someone's home.", location: "farm_house"},
+},
+farm_house: @options_farm_house = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "farm_house"},
+"Knock on door" => {text: "You timidly knock on the door, tired after your adventure. An elderly woman opens the door and invites you in. You rest overnight and are able to get home the next morning.
+  YOU WIN", location: "end"},
+"Enter house without knocking" => {text: "An angry farmer rushes at you, kicking you out of his house. You try to explain your situation but he refuses to let you in. With nowhere to shelter over night, you perish to the cold.
+  GAME OVER", location: "end"}
+}
 }
 
 puts "As the sharp chirp of birds infiltrates your slumber, you groggily open your eyes.
