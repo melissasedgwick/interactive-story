@@ -1,9 +1,17 @@
-location = "forest"
-inventory = {:water_bottle => "empty",
+@location = "forest"
+@inventory = {:water_bottle => "empty",
 clothes: "good condition",
 bag: "small"
 }
-status = "alive"
+@status = "alive"
+
+which_option = {forest: @options_forest,
+river1: @options_river2,
+river2: @options_river2,
+waterfall: @options_waterfall,
+cave1: @options_cave1,
+cave2: @options_cave2
+}
 
 @options_forest = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "forest"},
 "Check berry bushes" => {text: "You move closer to the berry bushes and see they are covered in bright red berries.", location: "forest"},
@@ -32,26 +40,42 @@ Standing up, you take in your surroundings. You can see some dark green bushes l
 with crimson berries dotted between the trees. You can hear the sound of running water
 to the north."
 
-def player_choice(location)
+def player_choice
   puts "What would you like to do?"
-  case location
+  case @location
   when "forest"
+    options = @options_forest
     puts @options_forest.keys
   when "river1"
+    options = @options_river1
     puts @options_river1.keys
   when "river2"
+    options = @options_river2
     puts @options_river2.keys
   when "waterfall"
+    options = @options_waterfall
     puts @options_waterfall.keys
   when "cave1"
+    options = @options_cave1
     puts @options_cave1.keys
   when "cave2"
+    options = @options_cave2
     puts @options_cave2.keys
   end
   @action = gets.chomp
+  while options.include?(@action) == false
+    puts "Please type the command exactly as it shows."
+    @action = gets.chomp
+  end
 end
 
-def action_output(action)
+def action_output
+
 end
 
-player_choice(location)
+def turn
+  player_choice
+  action_output
+end
+
+turn
