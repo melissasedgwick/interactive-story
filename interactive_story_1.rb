@@ -12,13 +12,13 @@ bag: "small"
 "Move south" => {text: "You attempt to head south but the trees soon become too thick. You head back to the clearing.", location: "forest"},
 "Move west" => {text: "You attempt to head west but the trees soon become too thick. You head back to the clearing.", location: "forest"}
 },
-river1: @options_river1 = ["Check inventory",
-"Return to forest",
-"Move upstream",
-"Move downstream",
-"Try to cross river",
-"Fill water bottle",
-],
+river1: @options_river1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "river1"},
+"Return to forest" => {text: "You return to the small clearing with red berry bushes dotted around you.", location: "forest"},
+"Move upstream" => 1,
+"Move downstream" => 1,
+"Try to cross river" => 1,
+"Fill water bottle" => 1,
+},
 river2: @options_river2 = ["Keep moving forwards",
 "Head back"
 ],
@@ -50,12 +50,15 @@ def player_choice
 end
 
 def action_output
-
+  puts @which_option[@location.to_sym][@action][:text]
+  @location = @which_option[@location.to_sym][@action][:location]
 end
 
 def turn
-  player_choice
-  action_output
+  while @status == "alive" do
+    player_choice
+    action_output
+  end
 end
 
 turn
