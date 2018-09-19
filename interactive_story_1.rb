@@ -57,7 +57,16 @@ outside_cave3: @options_outside_cave3 = {"Check inventory" => {text: "Your cloth
 "Go into cave" => {text: "You head into the cave, the light from outside fading quickly into darkness as you stumble through.", location: "cave1"},
 "Head back to fast stream" => {text: "You head back towards the stream near where you awoke.", location: "river1"}
 },
-cave1: @options_cave1
+cave1: @options_cave1 = {"Turn around and exit cave" => {text: "Unable to find your way, your turn around and exit the cave", location: "outside_cave1"},
+"Keep moving forwards" => {text: "You head further into the cave, your eyes adjusting slightly to the darkness. You reach a fork in the path.", location: "cave_fork"}
+},
+cave_fork: @options_cave_fork = {"Go left" => {text: "You go left. You walk for an immeasurable length of time before the darkness consumes you and you can't even see your hands in front of your face. Not wanting to go any further, you turn around.", location: "cave_fork2"},
+"Go right" => {text: "Heading down the right tunnel, you begin to notice the light increasing. Eventually, you exit the cave, standing over a large field, looking to belong to a farmer. You see a small hut at the other end of the field.", location: "farm"}
+},
+cave_fork2: @options_cave_fork2 = {"Go right" => {text: "Heading down the right tunnel, you begin to notice the light increasing. Eventually, you exit the cave, standing over a large field, looking to belong to a farmer. You see a small hut at the other end of the field.", location: "farm"},
+"Exit cave" => {text: "Unable to find your way, your turn around and exit the cave", location: "outside_cave1"},
+},
+farm: @options_farm = {"Go back into cave"}
 }
 
 puts "As the sharp chirp of birds infiltrates your slumber, you groggily open your eyes.
