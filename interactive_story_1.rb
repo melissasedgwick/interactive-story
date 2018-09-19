@@ -38,9 +38,12 @@ waterfall_look: @options_waterfall_look = {"Pick up stick" => {text: "You pick u
 waterfall1: @options_waterfall1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "waterfall1"},
 "Try to catch fish" => {text: "Using the sharp stick, you try to catch fish. After a couple of unsuccessful attempts, you manage to catch a fish!", location: "waterfall1"},
 "Head back to fast flowing stream" => {text: "You head back towards the stream near where you awoke. You leave the stick behind.", location: "river1"},
-"Attempt to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side.", location: "fields"}
+"Attempt to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side, where fields stretch before you.", location: "fields"}
 },
-fields: @options_fields,
+fields: @options_fields = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "fields"},
+"Walk into fields" => {text: "You start your trek across the fields, eventually coming across a small dirt track covered in hoof-prints.", location: "track"},
+"Go back across river" => "You head back across the river, returning to the section with fish.", location: "waterfall"}
+},
 outside_cave1: @options_outside_cave1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "outside_cave1"},
 "Look around" => {text: "Turning around, you search for the source of the sound. Through the dim light of the trees, you notice a pair of eyes looking at you.", location: "outside_cave2"},
 "Go into cave" => {text: "You head into the cave, the light from outside fading quickly into darkness as you stumble through.", location: "cave1"},
