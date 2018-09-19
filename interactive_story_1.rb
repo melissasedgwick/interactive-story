@@ -18,7 +18,7 @@ berries: @options_berries = {"Eat the berries" => {text: "The berries were poiso
 river1: @options_river1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "river1"},
 "Return to forest" => {text: "You return to the small clearing with red berry bushes dotted around you.", location: "forest"},
 "Move upstream" => {text: "Moving upstream, you find a slow-running section of the water at the bottom of a waterfall, with fish swimming around.", location: "waterfall"},
-"Move downstream" => {text: "Heading downstream, continuing through the trees, you hear rustling around you and see a cave in front of you.", location: "cave1"},
+"Move downstream" => {text: "Heading downstream, continuing through the trees, you hear rustling around you and see a cave in front of you.", location: "outside_cave1"},
 "Try to cross river" => {text: "Rolling up your trousers, you step into the stream, surprised by how strong the current feels against your legs. Wading deeper, the water rises to above your waist and the fast flowing water batters against you.", location: "river2"},
 "Fill water bottle" => {text: "Taking the empty water bottle from your bag, you fill it in the stream.", location: "river1"},
 },
@@ -41,8 +41,23 @@ waterfall1: @options_waterfall1 = {"Check inventory" => {text: "Your clothes are
 "Attempt to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side.", location: "fields"}
 },
 fields: @options_fields,
-cave1: @options_cave1,
-cave2: @options_cave2
+outside_cave1: @options_outside_cave1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "outside_cave1"},
+"Look around" => {text: "Turning around, you search for the source of the sound. Through the dim light of the trees, you notice a pair of eyes looking at you.", location: "outside_cave2"},
+"Go into cave" => {text: "You head into the cave, the light from outside fading quickly into darkness as you stumble through.", location: "cave1"},
+"Head back to fast stream" => {text: "You head back towards the stream near where you awoke.", location: "river1"}
+},
+outside_cave2: @options_outside_cave2 = {"Approach creature" => {text: "It's a black bear!", location: "bear"},
+"Leave creature alone" => {text: "Deciding not to engage the mysterious animal, you head further towards the cave.", location: "outside_cave1"}
+},
+bear: @options_bear = {"Run away!!" => {text: "Attempting to outrun the angry animal, it easily catches up to you and eats you.
+  GAME OVER", location: "end"},
+"Stand your ground, making lots of noise" => {text: "Intimidated by your show of power, the bear backs down and leaves.", location: "outside_cave3"}
+},
+outside_cave3: @options_outside_cave3 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "outside_cave3"},
+"Go into cave" => {text: "You head into the cave, the light from outside fading quickly into darkness as you stumble through.", location: "cave1"},
+"Head back to fast stream" => {text: "You head back towards the stream near where you awoke.", location: "river1"}
+},
+cave1: @options_cave1
 }
 
 puts "As the sharp chirp of birds infiltrates your slumber, you groggily open your eyes.
