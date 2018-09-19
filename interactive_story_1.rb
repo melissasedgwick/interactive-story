@@ -24,7 +24,21 @@ river1: @options_river1 = {"Check inventory" => {text: "Your clothes are in good
 river2: @options_river2 = {"Keep moving forwards" => {text: "The powerful water soons become too much for you and sweeps you off your feet, hurling you downstream. With no way of regaining your footing, you soon perish in the water depths. GAME OVER", location: "end"},
 "Head back" => {text: "As the water reaches your chest and you feet begin to slip, you decide not to push your luck and head back to the river bank.", location: "river1"}
 },
-waterfall: @options_waterfall,
+waterfall: @options_waterfall = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "waterfall"},
+"Look around" => {text: "Searching around, you notice a sharp stick on the ground.", location: "waterfall_look"},
+"Try to catch fish" => {text: "With nothing but your bare hands to help, you reach into the water and spend a few infuriating minutes watching the fish swim away from your grasp.", location: "waterfall"},
+"Head back to fast flowing stream" => {text: "You head back towards the stream near where you awoke.", location: "river1"},
+"Attempt to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side.", location: "fields"}
+},
+waterfall_look: @options_waterfall_look = {"Pick up stick" => {text: "You pick up the sharp stick", location: "waterfall1"},
+"Leave stick" => {text: "Who needs a sharp stick? You don't pick it up.", location: "waterfall"}
+},
+waterfall1: @options_waterfall1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "waterfall1"},
+"Try to catch fish" => {text: "Using the sharp stick, you try to catch fish. After a couple of unsuccessful attempts, you manage to catch a fish!", location: "waterfall1"},
+"Head back to fast flowing stream" => {text: "You head back towards the stream near where you awoke. You leave the stick behind.", location: "river1"},
+"Attempt to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side.", location: "fields"}
+},
+fields: @options_fields,
 cave1: @options_cave1,
 cave2: @options_cave2
 }
