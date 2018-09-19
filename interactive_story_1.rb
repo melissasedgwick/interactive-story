@@ -3,21 +3,23 @@
 clothes: "good condition",
 bag: "small"
 }
-@status = "alive"
 
 @which_option = {forest: @options_forest = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "forest"},
-"Check berry bushes" => {text: "You move closer to the berry bushes and see they are covered in bright red berries.", location: "forest"},
+"Check berry bushes" => {text: "You move closer to the berry bushes and see they are covered in bright red berries. They look tastey.", location: "berries"},
 "Move north" => {text: "You move towards the sound of the water and find a clear stream cutting through the tree line. Across the stream, you can see wide open fields. Upstream, you see a mountain area, and downstream you see that the water cuts continues cutting through the trees.", location: "river1"},
 "Move east" => {text: "You attempt to head east but the trees soon become too thick. You head back to the clearing.", location: "forest"},
 "Move south" => {text: "You attempt to head south but the trees soon become too thick. You head back to the clearing.", location: "forest"},
 "Move west" => {text: "You attempt to head west but the trees soon become too thick. You head back to the clearing.", location: "forest"}
 },
+berries: @options_berries = {"Eat the berries" => {text: "The berries were poisonous and cause you a quick but painful death. GAME OVER", location: "end_game"},
+"Leave the berries" => {text: "Not knowing enough about the tempting fruits, you leave the berries alone.", location: "forest"}
+},
 river1: @options_river1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "river1"},
 "Return to forest" => {text: "You return to the small clearing with red berry bushes dotted around you.", location: "forest"},
-"Move upstream" => 1,
-"Move downstream" => 1,
-"Try to cross river" => 1,
-"Fill water bottle" => 1,
+"Move upstream" => {text: "Moving upstream, you find a slow-running section of the water at the bottom of a waterfall, with fish swimming around.", location: "waterfall"},
+"Move downstream" => {text: "Heading downstream, continuing through the trees, you hear rustling around you and see a cave in front of you.", location: "cave1"},
+"Try to cross river" => {text: "Rolling up your trousers, you step into the stream, surprised by how strong the current feels against your legs. Wading deeper, the water rises to above your waist and the fast flowing water batters against you.", location: "river2"},
+"Fill water bottle" => {text: "Taking the empty water bottle from your bag, you fill it in the stream.", location: "river1"},
 },
 river2: @options_river2 = ["Keep moving forwards",
 "Head back"
@@ -55,7 +57,7 @@ def action_output
 end
 
 def turn
-  while @status == "alive" do
+  while @status != "end_game" do
     player_choice
     action_output
   end
