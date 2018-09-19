@@ -11,7 +11,8 @@ bag: "small"
 "Move south" => {text: "You attempt to head south but the trees soon become too thick. You head back to the clearing.", location: "forest"},
 "Move west" => {text: "You attempt to head west but the trees soon become too thick. You head back to the clearing.", location: "forest"}
 },
-berries: @options_berries = {"Eat the berries" => {text: "The berries were poisonous and cause you a quick but painful death. GAME OVER", location: "end"},
+berries: @options_berries = {"Eat the berries" => {text: "The berries were poisonous and cause you a quick but painful death.
+  GAME OVER", location: "end"},
 "Leave the berries" => {text: "Not knowing enough about the tempting fruits, you leave the berries alone.", location: "forest"}
 },
 river1: @options_river1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "river1"},
@@ -21,7 +22,8 @@ river1: @options_river1 = {"Check inventory" => {text: "Your clothes are in good
 "Try to cross river" => {text: "Rolling up your trousers, you step into the stream, surprised by how strong the current feels against your legs. Wading deeper, the water rises to above your waist and the fast flowing water batters against you.", location: "river2"},
 "Fill water bottle" => {text: "Taking the empty water bottle from your bag, you fill it in the stream.", location: "river1"},
 },
-river2: @options_river2 = {"Keep moving forwards" => {text: "The powerful water soons become too much for you and sweeps you off your feet, hurling you downstream. With no way of regaining your footing, you soon perish in the water depths. GAME OVER", location: "end"},
+river2: @options_river2 = {"Keep moving forwards" => {text: "The powerful water soons become too much for you and sweeps you off your feet, hurling you downstream. With no way of regaining your footing, you soon perish in the water depths.
+  GAME OVER", location: "end"},
 "Head back" => {text: "As the water reaches your chest and you feet begin to slip, you decide not to push your luck and head back to the river bank.", location: "river1"}
 },
 waterfall: @options_waterfall = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "waterfall"},
@@ -51,11 +53,14 @@ with crimson berries dotted between the trees. You can hear the sound of running
 to the north."
 
 def player_choice
-  puts "What would you like to do?"
+  puts "..
+What would you like to do?"
   @which_option.each do |location, opt|
     if @location.to_sym == location
       @all_options = opt.keys
-      puts opt.keys
+      opt.each do |keys, values|
+        puts "- #{keys}"
+      end
     end
   end
   @action = gets.chomp
@@ -73,6 +78,7 @@ end
 def turn
   while @location != "end" do
     player_choice
+    puts ""
     action_output
   end
 end
