@@ -11,7 +11,7 @@ bag: "small"
 "Move south" => {text: "You attempt to head south but the trees soon become too thick. You head back to the clearing.", location: "forest"},
 "Move west" => {text: "You attempt to head west but the trees soon become too thick. You head back to the clearing.", location: "forest"}
 },
-berries: @options_berries = {"Eat the berries" => {text: "The berries were poisonous and cause you a quick but painful death. GAME OVER", location: "end_game"},
+berries: @options_berries = {"Eat the berries" => {text: "The berries were poisonous and cause you a quick but painful death. GAME OVER", location: "end"},
 "Leave the berries" => {text: "Not knowing enough about the tempting fruits, you leave the berries alone.", location: "forest"}
 },
 river1: @options_river1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "river1"},
@@ -54,10 +54,11 @@ end
 def action_output
   puts @which_option[@location.to_sym][@action][:text]
   @location = @which_option[@location.to_sym][@action][:location]
+  puts @location.to_s
 end
 
 def turn
-  while @status != "end_game" do
+  while @location != "end" do
     player_choice
     action_output
   end
