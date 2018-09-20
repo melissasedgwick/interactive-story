@@ -3,10 +3,11 @@
 clothes: "good condition",
 bag: "small"
 }
+@thirst = ["track_left_water", "track_right_water", "cave_fork_water"]
 
 @which_option = {forest: @options_forest = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "forest"},
 "Check berry bushes" => {text: "You move closer to the berry bushes and see they are covered in bright red berries. They look tastey.", location: "berries"},
-"Move north" => {text: "You move towards the sound of the water and find a clear stream cutting through the tree line. Across the stream, you can see wide open fields. Upstream, you see a mountain area, and downstream you see that the water cuts continues cutting through the trees.", location: "river1"},
+"Move north" => {text: "You move towards the sound of the water and find a clear stream cutting through the tree line. Across the stream, you can see wide open fields. Upstream, you see a mountain area, and downstream you see that the water continues flowing through the trees.", location: "river1"},
 "Move east" => {text: "You attempt to head east but the trees soon become too thick. You head back to the clearing.", location: "forest"},
 "Move south" => {text: "You attempt to head south but the trees soon become too thick. You head back to the clearing.", location: "forest"},
 "Move west" => {text: "You attempt to head west but the trees soon become too thick. You head back to the clearing.", location: "forest"}
@@ -49,8 +50,16 @@ track: @options_track = {"Check inventory" => {text: "Your clothes are in good c
 "Go right" => {text: "Heading right, you walk for what feels like hours, watching the sun slowly sink towards the horizon. You're really thirsty.", location: "track_right_water"},
 "Look at hoof-prints" => {text: "There are a hoof-prints covering almost every inch of the dirt track. The most recent ones appear to be facing left.", location: "track"}
 },
-track_left:
-track_right:
+track_left_water: @options_track_left_water = {"Check water bottle" => {text: "You check your water bottle", location: "track_left_water"}
+},
+track_right_water: @options_track_right_water = {"Check water bottle" => {text: "You check your water bottle", location: "track_left_water"}
+},
+track_left: @options_track_left = {"Check inventory" => {text: "N/A", location: "track_left"},
+"Look around" => {text: "Looking around, you notice a cart filled with goods. It appears to be unoccupied", location: "cart"}
+},
+track_right: @options_track_right = {"Check inventory" => {text: "N/A", location: "track_right"},
+"Look around" => {text: "Looking around, you realise you are completely lost. The grass of the fields is now nearly as tall as you and you can't see far ahead or behind. You turn around and head back.", location: "track"}
+},
 outside_cave1: @options_outside_cave1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "outside_cave1"},
 "Look around" => {text: "Turning around, you search for the source of the sound. Through the dim light of the trees, you notice a pair of eyes looking at you.", location: "outside_cave2"},
 "Go into cave" => {text: "You head into the cave, the light from outside fading quickly into darkness as you stumble through.", location: "cave1"},
@@ -68,7 +77,9 @@ outside_cave3: @options_outside_cave3 = {"Check inventory" => {text: "Your cloth
 "Head back to fast stream" => {text: "You head back towards the stream near where you awoke.", location: "river1"}
 },
 cave1: @options_cave1 = {"Turn around and exit cave" => {text: "Unable to find your way, your turn around and exit the cave", location: "outside_cave1"},
-"Keep moving forwards" => {text: "You head further into the cave, your eyes adjusting slightly to the darkness. You reach a fork in the path.", location: "cave_fork"}
+"Keep moving forwards" => {text: "You head further into the cave, your eyes adjusting slightly to the darkness. You reach a fork in the path.", location: "cave_fork_water"}
+},
+cave_fork_water: @options_cave_fork_water = {"Check water bottle" => {text: "You check your water bottle", location: "track_left_water"}
 },
 cave_fork: @options_cave_fork = {"Go left" => {text: "You go left. You walk for an immeasurable length of time before the darkness consumes you and you can't even see your hands in front of your face. Not wanting to go any further, you turn around.", location: "cave_fork2"},
 "Go right" => {text: "Heading down the right tunnel, you begin to notice the light increasing. Eventually, you exit the cave, standing over a large field, looking to belong to a farmer. You see a small hut at the other end of the field.", location: "farm"}
@@ -122,12 +133,12 @@ def action_output
     @inventory.each do |key, value|
       puts "#{key.to_s}(#{value.to_s})"
     end
-  elsif @location == ("")
+  elsif @thirst.include?(@location)
     thirsty
   else
   puts @which_option[@location.to_sym][@action][:text]
   @location = @which_option[@location.to_sym][@action][:location]
-end
+  end
 end
 
 def update_inventory
