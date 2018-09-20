@@ -30,7 +30,7 @@ waterfall: @options_waterfall = {"Check inventory" => {text: "Your clothes are i
 "Look around" => {text: "Searching around, you notice a sharp stick on the ground.", location: "waterfall_look"},
 "Try to catch fish" => {text: "With nothing but your bare hands to help, you reach into the water and spend a few infuriating minutes watching the fish swim away from your grasp.", location: "waterfall"},
 "Head back to fast flowing stream" => {text: "You head back towards the stream near where you awoke.", location: "river1"},
-"Attempt to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side.", location: "fields"}
+"Try to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side.", location: "fields"}
 },
 waterfall_look: @options_waterfall_look = {"Pick up stick" => {text: "You pick up the sharp stick", location: "waterfall1"},
 "Leave stick" => {text: "Who needs a sharp stick? You don't pick it up.", location: "waterfall"}
@@ -38,12 +38,19 @@ waterfall_look: @options_waterfall_look = {"Pick up stick" => {text: "You pick u
 waterfall1: @options_waterfall1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "waterfall1"},
 "Try to catch fish" => {text: "Using the sharp stick, you try to catch fish. After a couple of unsuccessful attempts, you manage to catch a fish!", location: "waterfall1"},
 "Head back to fast flowing stream" => {text: "You head back towards the stream near where you awoke. You leave the stick behind.", location: "river1"},
-"Attempt to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side, where fields stretch before you.", location: "fields"}
+"Try to cross river" => {text: "You wade into the water, finding it easy to walk through with it running so slowly. You make it across to the other side, where fields stretch before you.", location: "fields"}
 },
 fields: @options_fields = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "fields"},
 "Walk into fields" => {text: "You start your trek across the fields, eventually coming across a small dirt track covered in hoof-prints.", location: "track"},
-"Go back across river" => "You head back across the river, returning to the section with fish.", location: "waterfall"}
+"Go back across river" => {text: "You head back across the river, returning to the section with fish.", location: "waterfall"}
 },
+track: @options_track = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "track"},
+"Go left" => {text: "Heading left, you walk for what feels like hours, watching the sun slowly sink towards the horizon. You're really thirsty.", location: "track_left_water"},
+"Go right" => {text: "Heading right, you walk for what feels like hours, watching the sun slowly sink towards the horizon. You're really thirsty.", location: "track_right_water"},
+"Look at hoof-prints" => {text: "There are a hoof-prints covering almost every inch of the dirt track. The most recent ones appear to be facing left.", location: "track"}
+},
+track_left:
+track_right:
 outside_cave1: @options_outside_cave1 = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "outside_cave1"},
 "Look around" => {text: "Turning around, you search for the source of the sound. Through the dim light of the trees, you notice a pair of eyes looking at you.", location: "outside_cave2"},
 "Go into cave" => {text: "You head into the cave, the light from outside fading quickly into darkness as you stumble through.", location: "cave1"},
@@ -71,13 +78,17 @@ cave_fork2: @options_cave_fork2 = {"Go right" => {text: "Heading down the right 
 },
 farm: @options_farm = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "farm"},
 "Go back into cave" => {text: "You head back into the cave, returning to the forked paths.", location: "cave_fork"},
-"Go to farm" => {text: "You head to the farm. As you get closer, you notice smoke rising from the chimney - someone's home.", location: "farm_house"},
+"Go to farm" => {text: "You head to the farm. As you get closer, you notice smoke rising from the chimney.", location: "farm_house"},
 },
 farm_house: @options_farm_house = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "farm_house"},
-"Knock on door" => {text: "You timidly knock on the door, tired after your adventure. An elderly woman opens the door and invites you in. You rest overnight and are able to get home the next morning.
-  YOU WIN", location: "end"},
+"Knock on door" => {text: "You timidly knock on the door, tired after your adventure. No one answers.", location: "farm_house2"},
 "Enter house without knocking" => {text: "An angry farmer rushes at you, kicking you out of his house. You try to explain your situation but he refuses to let you in. With nowhere to shelter over night, you perish to the cold.
+  GAME OVER", location: "end"},
+farm_house2: @options_farm_house2 = {"Knock again" => {text: "You knock again, slightly louder. An elderly woman opens the door and invites you in. You rest overnight and are able to get home the next morning.
+  YOU WIN", location: "end"},
+"Enter house" => {text: "An angry farmer rushes at you, kicking you out of his house. You try to explain your situation but he refuses to let you in. With nowhere to shelter over night, you perish to the cold.
   GAME OVER", location: "end"}
+}
 }
 }
 
@@ -107,14 +118,54 @@ What would you like to do?"
 end
 
 def action_output
+  if @action == "Check inventory"
+    @inventory.each do |key, value|
+      puts "#{key.to_s}(#{value.to_s})"
+    end
+  elsif @location == ("")
+    thirsty
+  else
   puts @which_option[@location.to_sym][@action][:text]
   @location = @which_option[@location.to_sym][@action][:location]
+end
+end
+
+def update_inventory
+  case @action
+  when "Fill water bottle"
+    @inventory[:water_bottle] = "full"
+  when "Try to catch fish"
+    if @location == "waterfall1"
+      @inventory[:fish] = 1
+    end
+  when "Offer fish"
+    @inventory[:fish] = 0
+  when "Try to cross river"
+    @inventory[:clothes] = "wet"
+  end
+  if @location == "waterfall1"
+    @inventory[:stick] = 1
+  end
+  @inventory
+end
+
+def thirsty
+  if @inventory[:water_bottle] == "empty"
+    puts "You have no water and eventually die of thirst.
+    GAME OVER"
+    @location = "end"
+  else
+    puts "Thankful that you thought to fill your water bottle up, you take it out and drink it."
+    @inventory[:water_bottle] = "empty"
+    @location = @location.chomp!("_water")
+  end
 end
 
 def turn
   while @location != "end" do
     player_choice
     puts ""
+    update_inventory
     action_output
   end
 end
