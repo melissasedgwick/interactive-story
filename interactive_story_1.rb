@@ -1,9 +1,16 @@
-@location = "forest"
-@inventory = {:water_bottle => "empty",
-clothes: "good condition",
-bag: "small"
-}
-@thirst = ["track_left_water", "track_right_water", "cave_fork_water"]
+def startup
+  @location = "forest"
+  @inventory = {:water_bottle => "empty",
+  clothes: "good condition",
+  bag: "small"
+  }
+  @thirst = ["track_left_water", "track_right_water", "cave_fork_water"]
+  puts "As the sharp chirp of birds infiltrates your slumber, you groggily open your eyes.
+  Soft morning light filters through leaves above you, and you find you're in a small
+  clearing of a dense forest.Standing up, you take in your surroundings. You can see some
+  dark green bushes littered with crimson berries dotted between the trees. You can hear
+  the sound of running water to the north."
+end
 
 @which_option = {forest: @options_forest = {"Check inventory" => {text: "Your clothes are in good condition and will keep you warm. You have a small bag and an empty water bottle.", location: "forest"},
 "Check berry bushes" => {text: "You move closer to the berry bushes and see they are covered in bright red berries. They look tastey.", location: "berries"},
@@ -109,12 +116,6 @@ farm_house2: @options_farm_house2 = {"Knock again" => {text: "You knock again, s
 }
 }
 
-puts "As the sharp chirp of birds infiltrates your slumber, you groggily open your eyes.
-Soft morning light filters through leaves above you, and you find you're in a small
-clearing of a dense forest.Standing up, you take in your surroundings. You can see some
-dark green bushes littered with crimson berries dotted between the trees. You can hear
-the sound of running water to the north."
-
 def player_choice
   puts "..
 What would you like to do?"
@@ -190,11 +191,19 @@ def trade
 end
 
 def turn
+  startup
   while @location != "end" do
     player_choice
     puts ""
     update_inventory
     action_output
+  end
+  puts "Would you like to start over?"
+  answer = gets.chomp
+  if answer == "Yes" || answer == "yes"
+    turn
+  else
+    puts "Good bye!"
   end
 end
 
